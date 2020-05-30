@@ -1,0 +1,15 @@
+language: python
+python:
+  - 3.6
+  - 3.7
+  - 3.8
+  - pypy
+install:
+  - pip install pip pipenv tox-travis
+  - pipenv install --dev
+script:
+  - bandit -r domain application infrastructure
+  - black --check .
+  - mypy .
+  - tox
+  - pytest --cov=domain --cov=application --cov=infrastructure tests/
